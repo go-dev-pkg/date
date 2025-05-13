@@ -12,6 +12,29 @@ func TestYear(t *testing.T) {
 	year := 2024
 	quarter, month, week := date.Year(year)
 	for _, q := range quarter {
+		quarterWeek := 0
+		for _, w := range q.Weeks {
+			quarterWeek++
+			if w.Week != quarterWeek {
+				t.Fatal("quarter week does not match")
+				return
+			}
+			if w.Year != year {
+				t.Fatal("year does not match")
+				return
+			}
+			for _, day := range w.Days {
+				if day.QuarterWeeks != quarterWeek {
+					t.Fatal("day quarter week does not match")
+					return
+				}
+				if day.Year != year {
+					t.Fatal("day year does not match")
+					return
+				}
+			}
+		}
+
 		if q.Quarter == 1 {
 			firstDay := q.Weeks[0].Days[0]
 			if firstDay.Month != 1 {
