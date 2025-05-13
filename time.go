@@ -15,6 +15,23 @@ func DayStartAndEnd(t ...time.Time) (start, end time.Time) {
 	return
 }
 
+// WeekStartAndEnd 当周的开始和结束时间
+func WeekStartAndEnd(t ...time.Time) (start, end time.Time) {
+	nt := time.Now()
+	if len(t) > 0 && !t[0].IsZero() {
+		nt = t[0]
+	}
+	weekday := int(nt.Weekday())
+	if weekday == 0 {
+		weekday = 7
+	}
+	s := nt.AddDate(0, 0, -weekday+1)
+	e := nt.AddDate(0, 0, 7-weekday)
+	start = time.Date(s.Year(), s.Month(), s.Day(), 0, 0, 0, 0, time.Local)
+	end = time.Date(e.Year(), e.Month(), e.Day(), 23, 59, 59, 0, time.Local)
+	return
+}
+
 // MonthStartAndEnd 当月的开始和结束时间
 func MonthStartAndEnd(t ...time.Time) (start, end time.Time) {
 	nt := time.Now()
