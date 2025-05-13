@@ -12,7 +12,52 @@ func TestYear(t *testing.T) {
 	year := 2024
 	quarter, month, week := date.Year(year)
 	for _, q := range quarter {
-		_ = q
+		if q.Quarter == 1 {
+			firstDay := q.Weeks[0].Days[0]
+			if firstDay.Month != 1 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的首月不是1月", year, q.Quarter), firstDay.Month, "!=", 1)
+				return
+			}
+			if firstDay.Day != 1 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的首日不是1号", year, q.Quarter), firstDay.Day, "!=", 1)
+				return
+			}
+			if firstDay.Weekday != 1 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的首日星期几有误", year, q.Quarter), firstDay.Weekday, "!=", 1)
+				return
+			}
+			if firstDay.QuarterWeeks != 1 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的首日是季度第几周有误", year, q.Quarter), firstDay.QuarterWeeks, "!=", 1)
+				return
+			}
+			lastWeek := q.Weeks[len(q.Weeks)-1]
+			lastDay := lastWeek.Days[len(lastWeek.Days)-1]
+			if lastDay.Month != 3 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的尾月不是3月", year, q.Quarter), lastDay.Month, "!=", 1)
+				return
+			}
+			if lastDay.Day != 31 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的尾日不是31号", year, q.Quarter), lastDay.Day, "!=", 31)
+				return
+			}
+			if lastDay.Weekday != 7 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的尾日星期几有误", year, q.Quarter), lastDay.Weekday, "!=", 7)
+				return
+			}
+			if lastDay.QuarterWeeks != 13 {
+				t.Fatal(fmt.Sprintf("%d年第%d季度的尾日是季度第几周有误", year, q.Quarter), lastDay.QuarterWeeks, "!=", 13)
+				return
+			}
+		}
+		if q.Quarter == 2 {
+			//
+		}
+		if q.Quarter == 3 {
+			//
+		}
+		if q.Quarter == 4 {
+			//
+		}
 	}
 	for _, m := range month {
 		if m.Month == 1 {
