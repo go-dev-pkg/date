@@ -7,6 +7,23 @@ import (
 	"github.com/go-dev-pkg/date"
 )
 
+func TestDayStartAndEnd(t *testing.T) {
+	times, err := time.ParseInLocation(time.DateTime, "2088-08-08 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end := date.DayStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2088-08-08 00:00:00" {
+		t.Fatal(s, "!=", "2088-08-08 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2088-08-08 23:59:59" {
+		t.Fatal(e, "!=", "2088-08-08 23:59:59")
+		return
+	}
+}
+
 func TestWeekStartAndEnd(t *testing.T) {
 	// 跨年的周
 	times, err := time.ParseInLocation(time.DateTime, "2025-12-31 08:08:08", time.Local)
