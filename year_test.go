@@ -523,4 +523,26 @@ func TestYear(t *testing.T) {
 		t.Fatal(fmt.Sprintf("%d年的年周有误", year), w, "!=", 53)
 		return
 	}
+	yearWeeks := 0
+	for _, w := range week {
+		yearWeeks++
+		if w.Year != year {
+			t.Fatal("w.Year != year")
+			return
+		}
+		if w.Week != yearWeeks {
+			t.Fatal("w.Week != yearWeeks")
+			return
+		}
+		for _, day := range w.Days {
+			if day.YearWeeks != w.Week {
+				t.Fatal("day.Weekday != w.Week")
+				return
+			}
+			if day.Year != year {
+				t.Fatal("day.Year != year")
+				return
+			}
+		}
+	}
 }
