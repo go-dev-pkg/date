@@ -185,6 +185,11 @@ func TestYear(t *testing.T) {
 		}
 	}
 	for _, m := range month {
+		if m.Year != year {
+			t.Fatal("m.Year != year")
+			return
+		}
+
 		monthWeek := 0
 		for _, w := range m.Weeks {
 			monthWeek++
@@ -220,6 +225,21 @@ func TestYear(t *testing.T) {
 					t.Fatal("day.Year != year")
 					return
 				}
+			}
+		}
+
+		for _, day := range m.Days {
+			if day.Month != m.Month {
+				t.Fatal("day.Month != m.Month")
+				return
+			}
+			if day.Quarter != m.Quarter {
+				t.Fatal("day.Quarter != m.Quarter")
+				return
+			}
+			if day.Year != year {
+				t.Fatal("day.Year != year")
+				return
 			}
 		}
 
