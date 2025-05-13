@@ -379,7 +379,63 @@ func TestYear(t *testing.T) {
 			}
 		}
 	}
-	for _, w := range week {
-		_ = w
+	firstWeek := week[0]
+	firstWeekFirstDay := firstWeek.Days[0]
+	if m := firstWeekFirstDay.Month; m != 1 {
+		t.Fatal(fmt.Sprintf("%d年第一周第一天的月分有误", year), m, "!=", 1)
+		return
+	}
+	if d := firstWeekFirstDay.Day; d != 1 {
+		t.Fatal(fmt.Sprintf("%d年第一周第一天有误", year), d, "!=", 1)
+		return
+	}
+	if w := firstWeekFirstDay.Weekday; w != 1 {
+		t.Fatal(fmt.Sprintf("%d年第一周第一天星期几有误", year), w, "!=", 1)
+		return
+	}
+	firstWeekLastDay := firstWeek.Days[len(firstWeek.Days)-1]
+	if m := firstWeekLastDay.Month; m != 1 {
+		t.Fatal(fmt.Sprintf("%d年第一周最后一天的月分有误", year), m, "!=", 1)
+		return
+	}
+	if d := firstWeekLastDay.Day; d != 7 {
+		t.Fatal(fmt.Sprintf("%d年第一周最后一天有误", year), d, "!=", 7)
+		return
+	}
+	if w := firstWeekLastDay.Weekday; w != 7 {
+		t.Fatal(fmt.Sprintf("%d年第一周最后一天星期几有误", year), w, "!=", 7)
+		return
+	}
+
+	lastWeek := week[len(week)-1]
+	lastWeekFirstDay := lastWeek.Days[0]
+	if m := lastWeekFirstDay.Month; m != 12 {
+		t.Fatal(fmt.Sprintf("%d年最后一周第一天的月分有误", year), m, "!=", 12)
+		return
+	}
+	if d := lastWeekFirstDay.Day; d != 30 {
+		t.Fatal(fmt.Sprintf("%d年最后一周第一天有误", year), d, "!=", 30)
+		return
+	}
+	if w := lastWeekFirstDay.Weekday; w != 1 {
+		t.Fatal(fmt.Sprintf("%d年最后一周第一天星期几有误", year), w, "!=", 1)
+		return
+	}
+	lastWeekLastDay := lastWeek.Days[len(lastWeek.Days)-1]
+	if m := lastWeekLastDay.Month; m != 12 {
+		t.Fatal(fmt.Sprintf("%d年最后一周最后一天的月分有误", year), m, "!=", 12)
+		return
+	}
+	if d := lastWeekLastDay.Day; d != 31 {
+		t.Fatal(fmt.Sprintf("%d年最后一周最后一天有误", year), d, "!=", 31)
+		return
+	}
+	if w := lastWeekLastDay.Weekday; w != 2 {
+		t.Fatal(fmt.Sprintf("%d年最后一周最后一天星期几有误", year), w, "!=", 2)
+		return
+	}
+	if w := lastWeekLastDay.YearWeeks; w != 53 {
+		t.Fatal(fmt.Sprintf("%d年的年周有误", year), w, "!=", 53)
+		return
 	}
 }
