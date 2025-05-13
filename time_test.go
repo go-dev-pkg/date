@@ -219,3 +219,69 @@ func TestMonthStartAndEnd(t *testing.T) {
 		return
 	}
 }
+
+func TestQuarterStartAndEnd(t *testing.T) {
+	// 第一季度
+	times, err := time.ParseInLocation(time.DateTime, "2088-03-08 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end := date.QuarterStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2088-01-01 00:00:00" {
+		t.Fatal(s, "!=", "2088-01-01 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2088-03-31 23:59:59" {
+		t.Fatal(e, "!=", "2088-03-31 23:59:59")
+		return
+	}
+
+	// 第二季度
+	times, err = time.ParseInLocation(time.DateTime, "2088-04-08 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end = date.QuarterStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2088-04-01 00:00:00" {
+		t.Fatal(s, "!=", "2088-01-01 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2088-06-30 23:59:59" {
+		t.Fatal(e, "!=", "2088-06-30 23:59:59")
+		return
+	}
+
+	// 第三季度
+	times, err = time.ParseInLocation(time.DateTime, "2088-08-08 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end = date.QuarterStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2088-07-01 00:00:00" {
+		t.Fatal(s, "!=", "2088-07-01 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2088-09-30 23:59:59" {
+		t.Fatal(e, "!=", "2088-09-30 23:59:59")
+		return
+	}
+
+	// 第四季度
+	times, err = time.ParseInLocation(time.DateTime, "2088-12-31 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end = date.QuarterStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2088-10-01 00:00:00" {
+		t.Fatal(s, "!=", "2088-10-01 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2088-12-31 23:59:59" {
+		t.Fatal(e, "!=", "2088-12-31 23:59:59")
+		return
+	}
+}
