@@ -12,6 +12,10 @@ func TestYear(t *testing.T) {
 	year := 2024
 	quarter, month, week := date.Year(year)
 	for _, q := range quarter {
+		if q.Year != year {
+			t.Errorf("year = %d, want %d", year, q.Year)
+			return
+		}
 		quarterWeek := 0
 		for _, w := range q.Weeks {
 			quarterWeek++
