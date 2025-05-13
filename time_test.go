@@ -103,4 +103,36 @@ func TestWeekStartAndEnd(t *testing.T) {
 		t.Fatal(e, "!=", "2025-03-02 23:59:59")
 		return
 	}
+
+	// 闰年跨月的周
+	times, err = time.ParseInLocation(time.DateTime, "2024-02-27 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end = date.WeekStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2024-02-26 00:00:00" {
+		t.Fatal(s, "!=", "2024-02-26 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2024-03-03 23:59:59" {
+		t.Fatal(e, "!=", "2024-03-03 23:59:59")
+		return
+	}
+
+	// 闰年跨月的周
+	times, err = time.ParseInLocation(time.DateTime, "2024-03-02 08:08:08", time.Local)
+	if err != nil {
+		t.Fatal(err)
+		return
+	}
+	start, end = date.WeekStartAndEnd(times)
+	if s := start.Format(time.DateTime); s != "2024-02-26 00:00:00" {
+		t.Fatal(s, "!=", "2024-02-26 00:00:00")
+		return
+	}
+	if e := end.Format(time.DateTime); e != "2024-03-03 23:59:59" {
+		t.Fatal(e, "!=", "2024-03-03 23:59:59")
+		return
+	}
 }
