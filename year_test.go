@@ -185,6 +185,44 @@ func TestYear(t *testing.T) {
 		}
 	}
 	for _, m := range month {
+		monthWeek := 0
+		for _, w := range m.Weeks {
+			monthWeek++
+			if w.Week != monthWeek {
+				t.Fatal("w.Week != monthWeek")
+				return
+			}
+			if w.Year != year {
+				t.Fatal("w.Year != year")
+				return
+			}
+			if w.Month != m.Month {
+				t.Fatal("w.Month != m.Month")
+				return
+			}
+			if w.Quarter != m.Quarter {
+				t.Fatal("w.Quarter != m.Quarter")
+				return
+			}
+			for _, day := range w.Days {
+				if day.Month != w.Month {
+					t.Fatal("day.Month != w.Month")
+					return
+				}
+				if day.Quarter != w.Quarter {
+					t.Fatal("day.Quarter != w.Quarter")
+				}
+				if day.MonthWeeks != w.Week {
+					t.Fatal("day.MonthWeeks != w.Week")
+					return
+				}
+				if day.Year != year {
+					t.Fatal("day.Year != year")
+					return
+				}
+			}
+		}
+
 		if m.Month == 1 {
 			if l := len(m.Weeks); l != 5 {
 				t.Fatal(fmt.Sprintf("%d年%d月的总周数有误", year, m.Month), l, "!=", 5)
