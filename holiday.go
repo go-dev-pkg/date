@@ -25,7 +25,6 @@ var Holiday = map[int]bool{
 	20250531: true,
 	20250601: true,
 	20250602: true,
-	20250903: true,
 	20250928: false,
 	20251001: true,
 	20251002: true,
