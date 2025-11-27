@@ -37,10 +37,6 @@ var Holidays = []Holiday{
 		Date: time.Date(2026, time.March, 3, 0, 0, 0, 0, time.Local),
 	},
 	{
-		Name: "清明节",
-		Date: time.Date(2026, time.April, 5, 0, 0, 0, 0, time.Local),
-	},
-	{
 		Name: "劳动节",
 		Date: time.Date(2026, time.May, 1, 0, 0, 0, 0, time.Local),
 	},
